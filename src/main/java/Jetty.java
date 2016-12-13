@@ -1,5 +1,8 @@
 import chain.Chainlet;
 import counter.Counter;
+import greeting.MainPageServlet;
+import greeting.PageControllerServlet;
+import greeting.PageViewServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 
@@ -26,8 +29,11 @@ public final class Jetty {
             public void contextInitialized(ServletContextEvent servletContextEvent) {
                 ServletContext servletContext = servletContextEvent.getServletContext();
 
-                servletContext.addServlet("chainletServlet", new Chainlet()).addMapping("/page1", "/page2", "/page3");=======
+                servletContext.addServlet("chainletServlet", new Chainlet()).addMapping("/page1", "/page2", "/page3");
                 servletContext.addServlet("counterServlet", new Counter()).addMapping("/counter");
+                servletContext.addServlet("welcomeServlet", new MainPageServlet()).addMapping("/greet");
+                servletContext.addServlet("pageContollerServlet", new PageControllerServlet()).addMapping("/page");
+                servletContext.addServlet("pageViewServlet", new PageViewServlet()).addMapping("/pageView");
             }
 
             public void contextDestroyed(ServletContextEvent servletContextEvent) {
@@ -41,5 +47,6 @@ public final class Jetty {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }
