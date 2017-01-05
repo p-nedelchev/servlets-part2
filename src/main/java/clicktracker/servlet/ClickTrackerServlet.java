@@ -26,7 +26,7 @@ public class ClickTrackerServlet extends HttpServlet {
      * Servlet with overrode doGet() method that gets a parameter and checks if it's in the hash map 'links'
      * If it's not it sets the counter to 1, if it is it increases it by 1.
      * The content type being send to the client is set to text/html.
-     * Implementation of HtmlTemplate to evaluate the html file and the content of the hash map 'links'
+     * Implementation of Template to evaluate the html file and the content of the hash map 'links'
      *
      * @param request
      * @param response
