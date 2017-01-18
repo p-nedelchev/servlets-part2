@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Enumeration;
 
 /**
@@ -19,12 +18,7 @@ public class PageViewServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ClassLoader loader = getClass().getClassLoader();
-
-        String pageName = (String) req.getAttribute("pageName");
-
-        InputStream templateStream = loader.getResourceAsStream(pageName);
-        String templateAsString = new String(ByteStreams.toByteArray(templateStream));
+        String templateAsString = new String(ByteStreams.toByteArray(PageViewServlet.class.getResourceAsStream("template.html")));
 
         Enumeration<String> attributeNames = req.getAttributeNames();
         while (attributeNames.hasMoreElements()) {

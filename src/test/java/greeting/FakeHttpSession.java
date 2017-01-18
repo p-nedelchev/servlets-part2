@@ -5,13 +5,14 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 import java.util.Enumeration;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author Petar Nedelchev (peter.krasimirov@gmail.com)
  */
 public class FakeHttpSession implements HttpSession {
 
-    private LinkedHashMap<String, Object> session;
+    private Map<String, Object> session;
 
     public FakeHttpSession(LinkedHashMap<String, Object> session) {
 

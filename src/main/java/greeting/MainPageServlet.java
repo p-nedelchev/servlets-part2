@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * @author Petar Nedelchev (peter.krasimirov@gmail.com)
@@ -18,8 +17,6 @@ public class MainPageServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ClassLoader loader = getClass().getClassLoader();
-        InputStream is = loader.getResourceAsStream("greeting/index.html");
-        ByteStreams.copy(is, resp.getOutputStream());
+        ByteStreams.copy(MainPageServlet.class.getResourceAsStream("index.html"), resp.getOutputStream());
     }
 }

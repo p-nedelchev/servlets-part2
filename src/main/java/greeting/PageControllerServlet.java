@@ -14,20 +14,20 @@ import java.util.Map;
  */
 public class PageControllerServlet extends HttpServlet {
 
-    public PageControllerServlet() {}
+    public PageControllerServlet() {
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
 
-
         String greetingMessage = "Welcome you visit this page for the first time";
         String message = "You have been here before";
 
         Map<String, String> linkToTemplateMap = new HashMap<>();
-        linkToTemplateMap.put("page1", "greeting/template.html");
-        linkToTemplateMap.put("page2", "greeting/template-2.html");
-        linkToTemplateMap.put("page3", "greeting/template-3.html");
+        linkToTemplateMap.put("page1", "First Page");
+        linkToTemplateMap.put("page2", "Second Page");
+        linkToTemplateMap.put("page3", "Third Page");
 
         String linkName = req.getParameter("name");
 
@@ -44,8 +44,5 @@ public class PageControllerServlet extends HttpServlet {
         ForwardHandler forwardHandler = new ForwardHandler("pageView");
         forwardHandler.handle(new RequestWrapper(req), resp);
     }
-
-
-
 }
 

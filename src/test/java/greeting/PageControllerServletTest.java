@@ -38,7 +38,7 @@ public class PageControllerServletTest {
            oneOf(request).getParameter("name");
            will(returnValue("page1"));
 
-           oneOf(request).setAttribute("pageName", "greeting/template.html");
+           oneOf(request).setAttribute("pageName", "template.html");
 
            oneOf(request).setAttribute("value", "Welcome you visit this page for the first time");
 
@@ -50,7 +50,4 @@ public class PageControllerServletTest {
 
         assertThat(session.getAttribute("page1"), is("yes"));
     }
-
-
-
 }
