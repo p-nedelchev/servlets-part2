@@ -36,14 +36,15 @@ public class PageViewServletTest {
         HttpServletResponse response = context.mock(HttpServletResponse.class);
         StringWriter writer = new StringWriter();
         FakePrintStream outputStream = new FakePrintStream(writer);
-        Enumeration<String> attributeNames = Collections.enumeration(Lists.newArrayList("value"));
+        Enumeration<String> attributeNames = Collections.enumeration(Lists.newArrayList("pageName", "value"));
 
         context.checking(new Expectations() {{
-            oneOf(request).getAttribute("pageName");
-            will(returnValue("template.html"));
 
             oneOf(request).getAttributeNames();
             will(returnValue(attributeNames));
+
+            atLeast(1).of(request).getAttribute("pageName");
+            will(returnValue("First Page"));
 
             atLeast(1).of(request).getAttribute("value");
             will(returnValue("Welcome you visit this page for the first time"));
@@ -68,14 +69,15 @@ public class PageViewServletTest {
 
         StringWriter writer = new StringWriter();
         FakePrintStream outputStream = new FakePrintStream(writer);
-        Enumeration<String> attributeNames = Collections.enumeration(Lists.newArrayList("value"));
+        Enumeration<String> attributeNames = Collections.enumeration(Lists.newArrayList("pageName", "value"));
 
         context.checking(new Expectations() {{
-            oneOf(request).getAttribute("pageName");
-            will(returnValue("template-2.html"));
 
             oneOf(request).getAttributeNames();
             will(returnValue(attributeNames));
+
+            atLeast(1).of(request).getAttribute("pageName");
+            will(returnValue("First Page"));
 
             atLeast(1).of(request).getAttribute("value");
             will(returnValue("You have been here before"));
