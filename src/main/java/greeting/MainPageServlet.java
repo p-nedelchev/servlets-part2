@@ -15,9 +15,6 @@ import java.io.IOException;
 @Singleton
 public class MainPageServlet extends HttpServlet {
 
-    public MainPageServlet() {
-    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ByteStreams.copy(MainPageServlet.class.getResourceAsStream("index.html"), resp.getOutputStream());

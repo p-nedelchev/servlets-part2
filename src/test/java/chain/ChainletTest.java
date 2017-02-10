@@ -1,5 +1,6 @@
 package chain;
 
+
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Guice;
 import com.google.inject.TypeLiteral;
@@ -15,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
@@ -28,6 +28,7 @@ public class ChainletTest {
 
     @Test
     public void noSpecificPageRequested() throws Exception {
+
         Chainlet chainlet = Guice.createInjector(new ChainletModule()).getInstance(Chainlet.class);
         HttpServletRequest request = context.mock(HttpServletRequest.class);
         HttpServletResponse response = context.mock(HttpServletResponse.class);
@@ -54,6 +55,7 @@ public class ChainletTest {
 
     @Test
     public void oneLinkClicked() throws Exception {
+
         Chainlet chainlet = Guice.createInjector(new ChainletModule()).getInstance(Chainlet.class);
         HttpServletRequest request = context.mock(HttpServletRequest.class);
         HttpServletResponse response = context.mock(HttpServletResponse.class);

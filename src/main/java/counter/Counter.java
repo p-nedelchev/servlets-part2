@@ -1,7 +1,6 @@
 package counter;
 
 import com.google.inject.Singleton;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +12,7 @@ import java.io.PrintWriter;
 /**
  * @author Petar Nedelchev (peter.krasimirov@gmail.com)
  */
+
 @Singleton
 public class Counter extends HttpServlet {
 
@@ -36,9 +36,10 @@ public class Counter extends HttpServlet {
                 "\n" +
                 "</head>\n" +
                 "<body>\n" +
+
                 "    <a href=\"?linkName=first\" >Link1</a>&nbsp" + nullToEmpty(session.getAttribute("first")) + "<br>\n" +
                 "    <a href=\"?linkName=second\" >Link2</a>&nbsp" + nullToEmpty(session.getAttribute("second")) + "<br>\n" +
-                "    <a href=\"?linkName=third\" >Link3</a>&nbsp" + nullToEmpty(session.getAttribute("third")) + "\n" +
+                "    <a href=\"?linkName=third\" >Link3</a>&nbsp" + nullToEmpty(session.getAttribute("third")) + "\n" +         
                 "</body>\n" +
                 "</html>";
 
@@ -48,7 +49,7 @@ public class Counter extends HttpServlet {
     }
 
     private Object nullToEmpty(Object o) {
-        if (o == null) {
+        if (o == null) {   
             return "";
         }
         return o;

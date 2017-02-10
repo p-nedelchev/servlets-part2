@@ -1,3 +1,4 @@
+
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.google.inject.servlet.GuiceFilter;
@@ -8,14 +9,16 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
 
+
 /**
  * @author Petar Nedelchev (peter.krasimirov@gmail.com)
  */
 public final class Jetty {
     private final Server server;
+    private static final int SHUTDOWN_TIMEOUT = 30000;
 
     @Inject
-    public Jetty(@Named("Port") Integer port) {
+    public Jetty(@Named("Port") int port) {
         this.server = new Server(port);
     }
 
@@ -31,4 +34,9 @@ public final class Jetty {
         }
 
     }
+
+    public void stop() {
+        server.setGracefulShutdown(SHUTDOWN_TIMEOUT);
+    }
+
 }

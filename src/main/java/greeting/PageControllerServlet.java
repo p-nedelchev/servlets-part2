@@ -2,7 +2,6 @@ package greeting;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.google.inject.name.Named;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,18 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * @author Petar Nedelchev (peter.krasimirov@gmail.com)
  */
 @Singleton
 public class PageControllerServlet extends HttpServlet {
-    private final Map<String, String> linkToTemplateMap;
+    private final PageCatalog pageCatalog;
 
     @Inject
-    public PageControllerServlet(@Named("TemplateMap") Map<String, String> linkToTemplateMap) {
-        this.linkToTemplateMap = linkToTemplateMap;
+    public PageControllerServlet(PageCatalog pageCatalog) {
+        this.pageCatalog = pageCatalog;
     }
 
     @Override
@@ -33,7 +31,7 @@ public class PageControllerServlet extends HttpServlet {
 
         String linkName = req.getParameter("name");
 
-        req.setAttribute("pageName", linkToTemplateMap.get(linkName));
+        req.setAttribute("pageName", pageCatalog.getPageByName(linkName));
         String visited = (String) session.getAttribute(linkName);
 
         if (visited == null) {
