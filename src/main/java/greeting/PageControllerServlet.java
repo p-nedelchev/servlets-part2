@@ -1,20 +1,27 @@
 package greeting;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author Petar Nedelchev (peter.krasimirov@gmail.com)
  */
+@Singleton
 public class PageControllerServlet extends HttpServlet {
+    private final Map<String, String> linkToTemplateMap;
 
-    public PageControllerServlet() {
+    @Inject
+    public PageControllerServlet(@Named("TemplateMap") Map<String, String> linkToTemplateMap) {
+        this.linkToTemplateMap = linkToTemplateMap;
     }
 
     @Override
@@ -23,11 +30,6 @@ public class PageControllerServlet extends HttpServlet {
 
         String greetingMessage = "Welcome you visit this page for the first time";
         String message = "You have been here before";
-
-        Map<String, String> linkToTemplateMap = new HashMap<>();
-        linkToTemplateMap.put("page1", "First Page");
-        linkToTemplateMap.put("page2", "Second Page");
-        linkToTemplateMap.put("page3", "Third Page");
 
         String linkName = req.getParameter("name");
 

@@ -1,6 +1,7 @@
 package greeting;
 
 import com.google.common.io.ByteStreams;
+import com.google.inject.Singleton;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +14,8 @@ import java.util.Enumeration;
 /**
  * @author Petar Nedelchev (peter.krasimirov@gmail.com)
  */
-public class PageViewServlet extends HttpServlet{
+@Singleton
+public class PageViewServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,7 +26,7 @@ public class PageViewServlet extends HttpServlet{
         while (attributeNames.hasMoreElements()) {
             String attributeName = attributeNames.nextElement();
             String attributeValue = (String) req.getAttribute(attributeName);
-            templateAsString = templateAsString.replaceAll("\\$\\{" + attributeName +"\\}", attributeValue);
+            templateAsString = templateAsString.replaceAll("\\$\\{" + attributeName + "\\}", attributeValue);
         }
 
         ByteStreams.copy(new ByteArrayInputStream(templateAsString.getBytes("UTF-8")), resp.getOutputStream());

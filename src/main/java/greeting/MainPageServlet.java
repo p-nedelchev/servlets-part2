@@ -1,6 +1,7 @@
 package greeting;
 
 import com.google.common.io.ByteStreams;
+import com.google.inject.Singleton;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,9 +12,11 @@ import java.io.IOException;
 /**
  * @author Petar Nedelchev (peter.krasimirov@gmail.com)
  */
-public class MainPageServlet extends HttpServlet{
+@Singleton
+public class MainPageServlet extends HttpServlet {
 
-    public MainPageServlet() {}
+    public MainPageServlet() {
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,14 +1,12 @@
-import chain.Chainlet;
-import counter.Counter;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import com.google.inject.servlet.GuiceFilter;
 import greeting.MainPageServlet;
-import greeting.PageControllerServlet;
-import greeting.PageViewServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import javax.servlet.DispatcherType;
+import java.util.EnumSet;
 
 /**
  * @author Petar Nedelchev (peter.krasimirov@gmail.com)
@@ -16,32 +14,16 @@ import javax.servlet.ServletContextListener;
 public final class Jetty {
     private final Server server;
 
-    public Jetty(int port) {
+    @Inject
+    public Jetty(@Named("Port") Integer port) {
         this.server = new Server(port);
     }
 
     public void start() {
-        ServletContextHandler servletContext = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        servletContext.setContextPath("/");
+        ServletContextHandler servletContextHandler = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
+        servletContextHandler.addFilter(GuiceFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
+        servletContextHandler.addServlet(MainPageServlet.class, "/");
 
-        servletContext.addEventListener(new ServletContextListener() {
-
-            public void contextInitialized(ServletContextEvent servletContextEvent) {
-                ServletContext servletContext = servletContextEvent.getServletContext();
-
-                servletContext.addServlet("chainletServlet", new Chainlet()).addMapping("/page1", "/page2", "/page3");
-                servletContext.addServlet("counterServlet", new Counter()).addMapping("/counter");
-                servletContext.addServlet("welcomeServlet", new MainPageServlet()).addMapping("/greet");
-                servletContext.addServlet("pageContollerServlet", new PageControllerServlet()).addMapping("/page");
-                servletContext.addServlet("pageViewServlet", new PageViewServlet()).addMapping("/pageView");
-            }
-
-            public void contextDestroyed(ServletContextEvent servletContextEvent) {
-
-            }
-        });
-
-        server.setHandler(servletContext);
         try {
             server.start();
         } catch (Exception e) {
